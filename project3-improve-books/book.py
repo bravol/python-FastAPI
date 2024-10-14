@@ -1,6 +1,4 @@
-from fastapi import  FastAPI, Body
 
-app = FastAPI()
 
 class Book:
     book_id: int
