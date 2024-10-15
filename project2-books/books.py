@@ -80,7 +80,7 @@ async def update_book(updated_book = Body()):
 async  def delete_book(book_title: str):
     for i in range(len(BOOKS)):
         if BOOKS[i].get('title').casefold() == book_title.casefold():
-            BOOKS.pop()
+            BOOKS.pop(i)
             break
 
 
