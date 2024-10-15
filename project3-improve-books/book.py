@@ -1,4 +1,6 @@
 
+from pydantic import BaseModel
+
 
 class Book:
     book_id: int
@@ -13,3 +15,4 @@ class Book:
         self.description = description
         self. rating = rating
         self.author = author
+
