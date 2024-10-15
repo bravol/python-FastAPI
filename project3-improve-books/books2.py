@@ -44,11 +44,31 @@ BOOKS = [
 async def read_all_books():
     return BOOKS
 
+
+# getting a single book path parameter
+@app.get("/books/{book_id}")
+async  def read_book(book_id: int):
+    for book in BOOKS:
+        if book.book_id == book_id:
+            return book
+
+# get book by rating query parameter
+@app.get("/book/")
+async  def read_book_by_rating(book_rating: int):
+    books_to_return =[]
+    for book in BOOKS:
+        if book.rating == book_rating:
+            books_to_return.append(book)
+    return books_to_return
+
+
 # Endpoint to create a new book
 @app.post("/create-book")
 async def create_book(book_request: BookRequest):
     new_book = Book(**book_request.model_dump())
     BOOKS.append(create_book_id(new_book))
+
+
 
 
 def create_book_id(book:Book):
