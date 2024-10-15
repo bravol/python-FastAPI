@@ -1,87 +1,112 @@
-from fastapi import FastAPI,Body
+from typing import Optional
+from fastapi import FastAPI,Path,Query,HTTPException
+from pydantic import BaseModel,Field
+from book import Book
+from starlette import status
+
 
 app = FastAPI()
 
-# create a list of books
+class BookRequest(BaseModel):
+    # book_id: Optional[int] = None
+    book_id: Optional[int] = Field(description='ID is not needed on create', default=None)
+    title: str = Field(min_length=3)
+    author: str = Field(min_length=3)
+    description: str = Field(min_length=5, max_length=100)
+    rating: int = Field(gt=0, lt=6) #rating from 1 to 5
+    published_date: int = Field(gt=1999, lt=2031)
 
+    model_config = {
+        "json_schema_extra": {
+            "example":{
+                "title": "A new book",
+                "author": "Codding challenge",
+                "description": "A new description of a book",
+                "rating":5,
+                "published_date": 2030
+            }
+        }
+    }
+
+
+
+
+# Initialize the BOOKS list
 BOOKS = [
-    {"title":"Title One", "author":"Author one", "category":"science"},
-    {"title":"Title Two", "author":"Author Two", "category":"science"},
-    {"title":"Title Three", "author":"Author Three", "category":"history"},
-    {"title":"Title Four", "author":"Author Four", "category":"history"},
-    {"title":"Title Five", "author":"Author Five", "category":"math"},
-    {"title":"Title Six", "author":"Author Six", "category":"math"},
-
+    Book(1, 'Computer Science', 'Lumala Brian', 'description one', 4, 2000),
+    Book(2, 'Understand Python', 'Lumala Brian', 'description two', 2,2001),
+    Book(3, 'Understand Ruby', 'Bravol Brian', 'description three', 5,2002),
+    Book(4, 'Be fast with FastAPI', 'Brian Bravol', 'description four', 1,2003),
+    Book(5, 'Master Endpoints', 'Joseph Brian', 'description five',5,2004),
+    Book(6, 'Computer Science Pro', 'Derrick Brian', 'description six', 3,2005),
 ]
 
-# GET REQUEST used to get data
-
-@app.get("/books")
+# Endpoint to retrieve all books
+@app.get("/books", status_code=status.HTTP_200_OK)
 async def read_all_books():
     return BOOKS
 
 
-@app.get('/books/mybook')
-async def read_all_books():
-    return {'book_title':'my favorite book!'}
-
-# path parameters dynamic
-@app.get('/books/{book_title}')
-async def read_book(book_title: str):
+# getting a single book path parameter
+@app.get("/books/{book_id}", status_code=status.HTTP_200_OK)
+async  def read_book(book_id: int = Path(gt=0)):
     for book in BOOKS:
-        if book.get('title').casefold() == book_title.casefold():
+        if book.book_id == book_id:
             return book
+    raise HTTPException(status_code=404,detail="Item not found")
 
-
-# query parameters by category filter data based on the url provided.
-@app.get('/books/')
-async def read_category_by_query(category: str):
-    books_to_return = []
+# get book by rating query parameter
+@app.get("/books/", status_code=status.HTTP_200_OK)
+async  def read_book_by_rating(book_rating: int = Query(gt=0,lt=6)):
+    books_to_return =[]
     for book in BOOKS:
-        if book.get('category').casefold() == category.casefold():
-            books_to_return.append(book)
-    return  books_to_return
-
-
-@app.get("/books/by_author/")
-async  def read_books_by_author_path(author: str):
-    books_to_return = []
-    for book in BOOKS:
-        if book.get('author').casefold() == author.casefold():
+        if book.rating == book_rating:
             books_to_return.append(book)
     return books_to_return
 
 
-# query parameters by author and category filter data based on the url provided.
-@app.get('/book/{book_author}/')
-async def read_author_category_by_query(book_author: str, category: str):
-    books_to_return = []
+@app.get("/books/publish/", status_code=status.HTTP_200_OK)
+async def read_book_by_published_date(published_date: int = Query(gt=1999,lt=2031)):
+    books_to_return =[]
     for book in BOOKS:
-        if (book.get('author').casefold() == book_author.casefold() and
-                book.get('category').casefold() == category.casefold()):
+        if book.published_date == published_date:
             books_to_return.append(book)
     return  books_to_return
 
-# POST REQUEST used to create data
-@app.post('/books/create_book')
-async def create_book(new_book = Body()):
-    BOOKS.append(new_book)
+
+# Endpoint to create a new book
+@app.post("/create-book", status_code=status.HTTP_201_CREATED)
+async def create_book(book_request: BookRequest):
+    new_book = Book(**book_request.model_dump())
+    BOOKS.append(create_book_id(new_book))
 
 
-# PUT REQUEST used to update data
-@app.put('/book/update_book')
-async def update_book(updated_book = Body()):
+def create_book_id(book:Book):
+    if len(BOOKS) > 0:
+        book.book_id = BOOKS[-1].book_id + 1
+    else:
+        book.book_id = 1
+    return book
+
+# update the book
+@app.put("/books/update-book", status_code=status.HTTP_204_NO_CONTENT)
+async def update_book(book: BookRequest):
+    book_changed = False
     for i in range(len(BOOKS)):
-        if BOOKS[i].get('title').casefold() == updated_book.get('title').casefold():
-            BOOKS[i] = updated_book
+        if BOOKS[i].book_id == book.book_id:
+            BOOKS[i] = book
+            book_changed = True
+    if not book_changed:
+        raise HTTPException(status_code=404, detail="item not found")
 
-# DELETE REQUEST METHOD used to delete data
-@app.delete("/book/delete_book/{book_title}")
-async  def delete_book(book_title: str):
+# path parameter
+@app.delete("/book/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_book(book_id: int = Path(gt=0)):
+    book_deleted = False
     for i in range(len(BOOKS)):
-        if BOOKS[i].get('title').casefold() == book_title.casefold():
-            BOOKS.pop()
+        if BOOKS[i].book_id == book_id:
+            BOOKS.pop(i)
+            book_deleted = True
             break
-
-
-
+    if not book_deleted:
+        raise HTTPException(status_code=404, detail='Item not found')
