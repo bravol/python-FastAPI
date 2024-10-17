@@ -1,7 +1,6 @@
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import  sessionmaker
-from sqlalchemy.ext.declarative import  declarative_base
+from sqlalchemy.orm import  sessionmaker, declarative_base
 
 # database url
 SQLALCHEMY_DATABASE_URL = 'mysql+pymysql://root:12345678@127.0.0.1:3306/TodoDatabase'
