@@ -14,3 +14,26 @@ def test_return_user(test_user):
     assert  response.json()['last_name'] == 'Lumala'
     assert  response.json()['role'] == 'admin'
     assert  response.json()['phone_number'] == '1111111111'
+
+def change_password_success(test_user):
+    data = {
+            "password":"testpassword",
+            "new_password":"newpassword"
+            }
+    response = client.get("/users/password", json=data)
+    assert response.status_code == status.HTTP_204_NO_CONTENT
+
+
+def test_change_password_invalid_current_password(test_user):
+    # Providing an incorrect password to trigger the 401 Unauthorized error
+    data = {
+        "password": "wrongpassword",
+        "new_password": "newpassword"
+    }
+    response = client.put("/users/password", json=data)
+    assert response.status_code == status.HTTP_401_UNAUTHORIZED
+    assert response.json() == {"detail": "Error on password change"}
+
+def test_change_phone_number_success(test_user):
+    response = client.put("/users/phone_number/999999")
+    assert  response.status_code == status.HTTP_204_NO_CONTENT
