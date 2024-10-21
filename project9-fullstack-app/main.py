@@ -27,4 +27,10 @@ app.include_router(admin.router)
 app.include_router(users.router)
 
 
+# TO CREATE venv
+# python3 -m venv fastapienv
+# source fastapienv/bin/activate
+# pip install fastapi uvicorn
+# uvicorn main:app --reload
+# pip3 freeze > requirements.txt
 
