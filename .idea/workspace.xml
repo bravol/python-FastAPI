@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="776fccc9-cae3-415d-acb8-a89d16c7d6b1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project9-fullstack-app/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/project9-fullstack-app/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project9-fullstack-app/routers/todos.py" beforeDir="false" afterPath="$PROJECT_DIR$/project9-fullstack-app/routers/todos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project9-fullstack-app/routers/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/project9-fullstack-app/routers/admin.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +28,8 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/brianbravol/Documents/GitHub/python-FastAPI"
+    "last_opened_file_path": "/Users/brianbravol/Documents/GitHub/python-FastAPI",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="SharedIndexes">
