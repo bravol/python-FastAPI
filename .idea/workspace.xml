@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="776fccc9-cae3-415d-acb8-a89d16c7d6b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project9-fullstack-app/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/project9-fullstack-app/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project9-fullstack-app/routers/todos.py" beforeDir="false" afterPath="$PROJECT_DIR$/project9-fullstack-app/routers/todos.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,9 +17,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2nkcj6wcbF8OTtcomxAL911Akra" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -27,7 +28,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "project9-fullstack-app-branch",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/brianbravol/Documents/GitHub/python-FastAPI"
   }
 }]]></component>
