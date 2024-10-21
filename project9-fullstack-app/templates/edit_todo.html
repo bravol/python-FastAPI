@@ -42,7 +42,7 @@
           type="checkbox"
           class="form-check-input"
           name="complete"
-          value={% if todo.complete %} checked {% endif %}
+          {% if todo.complete %} checked {% endif %}
           
         />
         <label class='form-check-label'>Complete</label>
