@@ -85,3 +85,28 @@ async  def delete_book(book_title: str):
 
 
 
+# # learning
+# def user_dictionary(firstname, lastname, age):
+#     created_user_dictionary={
+#         "firstname": firstname,
+#         "lastname": lastname,
+#         'age': age
+#     }
+#     return created_user_dictionary
+#
+# solution = user_dictionary("lumala","brian",32)
+# print(solution)
+
+marks ={
+    "Math":30,
+    "English": 50
+}
+
+def calculate_homework(homework):
+    sum_of_grades=0
+    for work in homework.values():
+        sum_of_grades += work
+    final_grade = round(sum_of_grades / len(homework))
+    print(final_grade)
+
+calculate_homework(marks)
